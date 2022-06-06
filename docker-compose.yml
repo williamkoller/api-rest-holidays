@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  api-rest-holidays:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: api-rest-holidays
+    restart: always
+    entrypoint: sh -c "yarn install && yarn start:dev"
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      NGINX_PORT: ${NGINX_PORT}
+    networks:
+      - api-rest-holidays_network
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    ports:
+      - ${PORT}:${PORT}
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+    volumes:
+      - data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - api-rest-holidays_network
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - ${NGINX_PORT}:${NGINX_PORT}
+    expose:
+      - ${NGINX_PORT}
+    networks:
+     - api-rest-holidays_network
+    links:
+      - api-rest-holidays
+
+volumes:
+  data:
+
+networks:
+  api-rest-holidays_network:
