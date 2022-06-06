@@ -1,5 +1,7 @@
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import envFolderPath, { envs } from '@/config/env';
+import { TypeOrmConfig } from '@/config/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 export const imports = [
   ConfigModule.forRoot({
@@ -7,4 +9,5 @@ export const imports = [
     envFilePath: envFolderPath.folderPath,
     load: [envs],
   }),
+  TypeOrmModule.forRoot(TypeOrmConfig),
 ];
