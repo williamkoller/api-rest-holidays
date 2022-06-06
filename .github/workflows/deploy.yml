@@ -27,9 +27,6 @@ jobs:
 
       - name: Running test
         run: yarn test
-
-      - name: Running test e2e
-        run: yarn test:e2e
       
       - name: Running coverage
         run: yarn test:cov
