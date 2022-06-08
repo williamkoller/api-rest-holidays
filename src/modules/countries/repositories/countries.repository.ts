@@ -8,4 +8,8 @@ export class CountriesRepository extends Repository<Country> {
     const newCountry = Object.assign({} as AddCountryDto, addCountryDto);
     return await this.save(newCountry);
   }
+
+  async findAllCountry(): Promise<Country[]> {
+    return await this.find();
+  }
 }
