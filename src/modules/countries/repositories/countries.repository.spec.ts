@@ -15,9 +15,9 @@ describe('CountriesRepository', () => {
 
     mockAddCountry = {
       _id: 'any_id',
+      createdAt: new Date('2022-06-08'),
       name: 'any_name',
       slug: 'any_slug',
-      createdAt: new Date('2022-06-08'),
       updatedAt: new Date('2022-06-08'),
     };
 
@@ -32,6 +32,13 @@ describe('CountriesRepository', () => {
       repository.save = jest.fn().mockReturnValue(mockAddCountry);
       await repository.addCountry(mockAddCountry);
       expect(repository.save).toBeCalledWith(mockAddCountry);
+    });
+
+    it('should be returns created data', async () => {
+      repository.save = jest.fn().mockReturnValue(mockAddCountry);
+      expect(await repository.addCountry(mockAddCountry)).toEqual(
+        mockAddCountry,
+      );
     });
   });
 });
