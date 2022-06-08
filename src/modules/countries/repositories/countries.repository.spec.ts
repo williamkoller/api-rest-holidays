@@ -23,6 +23,7 @@ describe('CountriesRepository', () => {
 
     repository.save = jest.fn();
     repository.find = jest.fn();
+    repository.findOne = jest.fn();
   });
   it('should be defined', () => {
     expect(repository).toBeDefined();
@@ -47,6 +48,14 @@ describe('CountriesRepository', () => {
         repository.find = jest.fn().mockReturnValue([mockAddCountry]);
         await repository.findAllCountry();
         expect(repository.find).toBeCalledWith();
+      });
+    });
+
+    describe('findByName()', () => {
+      it('should be called findOne with correct params', async () => {
+        repository.findOne = jest.fn().mockReturnValue(mockAddCountry.name);
+        await repository.findByName(mockAddCountry.name);
+        expect(repository.findOne).toBeCalledWith(mockAddCountry.name);
       });
     });
   });
