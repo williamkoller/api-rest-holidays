@@ -15,9 +15,9 @@ describe('CountriesRepository', () => {
 
     mockAddCountry = {
       _id: 'any_id',
-      createdAt: new Date('2022-06-08'),
       name: 'any_name',
       slug: 'any_slug',
+      createdAt: new Date('2022-06-08'),
       updatedAt: new Date('2022-06-08'),
     };
 
