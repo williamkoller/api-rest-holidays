@@ -12,4 +12,8 @@ export class CountriesRepository extends Repository<Country> {
   async findAllCountry(): Promise<Country[]> {
     return await this.find();
   }
+
+  async findByName(name: string): Promise<Country> {
+    return await this.findOne(name);
+  }
 }
