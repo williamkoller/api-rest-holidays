@@ -22,6 +22,7 @@ describe('CountriesRepository', () => {
     };
 
     repository.save = jest.fn();
+    repository.find = jest.fn();
   });
   it('should be defined', () => {
     expect(repository).toBeDefined();
@@ -39,6 +40,14 @@ describe('CountriesRepository', () => {
       expect(await repository.addCountry(mockAddCountry)).toEqual(
         mockAddCountry,
       );
+    });
+
+    describe('findAllCountry()', () => {
+      it('should be findAll with correct params', async () => {
+        repository.find = jest.fn().mockReturnValue([mockAddCountry]);
+        await repository.findAllCountry();
+        expect(repository.find).toBeCalledWith();
+      });
     });
   });
 });
