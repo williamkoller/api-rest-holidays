@@ -1,6 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CountriesRepository } from '../../repositories/countries.repository';
+import { CountriesRepository } from '@/modules/countries/repositories/countries.repository';
 import { FindAllCountriesService } from './find-all-contries.service';
 
 describe('FindAllCountriesService', () => {
