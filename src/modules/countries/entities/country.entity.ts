@@ -1,12 +1,17 @@
-import { Column, CreateDateColumn, Entity, ObjectIdColumn, PrimaryColumn, Unique, UpdateDateColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ObjectIdColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Unique(['name'])
 @Entity()
 export class Country {
   @ObjectIdColumn()
   _id: string;
 
-  @PrimaryColumn()
+  @Column()
   name: string;
 
   @Column()

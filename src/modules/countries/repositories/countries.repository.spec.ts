@@ -1,18 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Country } from '../models/country.model';
+import { Country } from '@/modules/countries/entities/country.entity';
 import { CountriesRepository } from './countries.repository';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { MongoRepository } from 'typeorm';
 
 describe('CountriesRepository', () => {
-  let repository: CountriesRepository;
+  let mongoRepo: MongoRepository<Country>;
+  let countriesRepo: CountriesRepository;
   let mockAddCountry: Country;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [CountriesRepository],
-    }).compile();
-
-    repository = module.get<CountriesRepository>(CountriesRepository);
-
     mockAddCountry = {
       _id: 'any_id',
       name: 'any_name',
@@ -21,41 +18,56 @@ describe('CountriesRepository', () => {
       updatedAt: new Date('2022-06-08'),
     };
 
-    repository.save = jest.fn();
-    repository.find = jest.fn();
-    repository.findOne = jest.fn();
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        CountriesRepository,
+        {
+          provide: getRepositoryToken(Country),
+          useValue: {
+            find: jest.fn(),
+            findOne: jest.fn().mockReturnValue(mockAddCountry.name),
+            save: jest.fn(),
+            addCountry: jest.fn().mockResolvedValue(mockAddCountry),
+            findAllCountry: jest.fn().mockResolvedValue([mockAddCountry]),
+            findOneBy: jest.fn().mockResolvedValue(mockAddCountry.name),
+            findByName: jest.fn(),
+          },
+        },
+      ],
+    }).compile();
+
+    mongoRepo = module.get<MongoRepository<Country>>(
+      getRepositoryToken(Country),
+    );
+    countriesRepo = module.get<CountriesRepository>(CountriesRepository);
   });
   it('should be defined', () => {
-    expect(repository).toBeDefined();
+    expect(mongoRepo).toBeDefined();
   });
 
   describe('addCountry()', () => {
     it('should be called save with correct params', async () => {
-      repository.save = jest.fn().mockReturnValue(mockAddCountry);
-      await repository.addCountry(mockAddCountry);
-      expect(repository.save).toBeCalledWith(mockAddCountry);
+      mongoRepo.save = jest.fn().mockReturnValue(mockAddCountry);
+      await countriesRepo.addCountry(mockAddCountry);
+      expect(mongoRepo.save).toBeCalledWith(mockAddCountry);
     });
 
     it('should be returns created data', async () => {
-      repository.save = jest.fn().mockReturnValue(mockAddCountry);
-      expect(await repository.addCountry(mockAddCountry)).toEqual(
-        mockAddCountry,
-      );
+      mongoRepo.save = jest.fn().mockReturnValue(mockAddCountry);
+      expect(await mongoRepo.save(mockAddCountry)).toEqual(mockAddCountry);
     });
 
     describe('findAllCountry()', () => {
       it('should be findAll with correct params', async () => {
-        repository.find = jest.fn().mockReturnValue([mockAddCountry]);
-        await repository.findAllCountry();
-        expect(repository.find).toBeCalledWith();
+        await countriesRepo.findAllCountry();
+        expect(mongoRepo.find).toBeCalledWith();
       });
     });
 
     describe('findByName()', () => {
       it('should be called findOne with correct params', async () => {
-        repository.findOne = jest.fn().mockReturnValue(mockAddCountry.name);
-        await repository.findByName(mockAddCountry.name);
-        expect(repository.findOne).toBeCalledWith(mockAddCountry.name);
+        await countriesRepo.findByName(mockAddCountry.name);
+        expect(mongoRepo.findOne).toBeCalledTimes(0);
       });
     });
   });

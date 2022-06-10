@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesRepository } from '@/modules/countries/repositories/countries.repository';
 import { AddCountryService } from './add-country.service';
-import { Country } from '@/modules/countries/models/country.model';
+import { Country } from '@/modules/countries/entities/country.entity';
 import { ConflictException } from '@nestjs/common';
 
 describe('AddCountryService', () => {

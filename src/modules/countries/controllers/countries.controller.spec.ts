@@ -1,6 +1,6 @@
 import { ConflictException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Country } from '../models/country.model';
+import { Country } from '@/modules/countries/entities/country.entity';
 import { AddCountryService } from '../services/add-country/add-country.service';
 import { CountriesController } from './countries.controller';
 
