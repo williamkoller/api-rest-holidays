@@ -1,7 +1,9 @@
 import { ConfigModule } from '@nestjs/config';
 import envFolderPath, { envs } from '@/config/env';
-import { TypeOrmConfig } from '@/config/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { forwardRef } from '@nestjs/common';
+import { CountriesModule } from '../countries/countries.module';
+import { TypeOrmConfig } from '@/config/typeorm';
 
 export const imports = [
   ConfigModule.forRoot({
@@ -10,4 +12,5 @@ export const imports = [
     load: [envs],
   }),
   TypeOrmModule.forRoot(TypeOrmConfig),
+  forwardRef(() => CountriesModule),
 ];
