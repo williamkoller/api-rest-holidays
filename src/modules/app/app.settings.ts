@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { forwardRef } from '@nestjs/common';
 import { CountriesModule } from '../countries/countries.module';
 import { TypeOrmConfig } from '@/config/typeorm';
+import { AppController } from './app.controller';
 
 export const imports = [
   ConfigModule.forRoot({
@@ -14,3 +15,5 @@ export const imports = [
   TypeOrmModule.forRoot(TypeOrmConfig),
   forwardRef(() => CountriesModule),
 ];
+
+export const controllers = [AppController];

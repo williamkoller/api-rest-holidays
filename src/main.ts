@@ -9,8 +9,6 @@ async function bootstrap() {
   const logger = new Logger('Main');
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.setGlobalPrefix('api');
-
   swagger(app);
 
   const config = app.get<ConfigService>(ConfigService);
