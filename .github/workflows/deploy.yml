@@ -53,3 +53,4 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           justlogin: true
           usedocker: true
+          stack: 'container'
