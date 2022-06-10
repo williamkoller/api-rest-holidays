@@ -46,4 +46,9 @@ describe('CountriesController', () => {
       new ConflictException('there is already a country with that name.'),
     );
   });
+
+  it('should be returns when service returns', async () => {
+    (service.addCountry as jest.Mock).mockReturnValue(mockAddCountry);
+    expect(await controller.add(mockAddCountry)).toEqual(mockAddCountry);
+  });
 });
