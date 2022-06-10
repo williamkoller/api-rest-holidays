@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesRepository } from '@/modules/countries/repositories/countries.repository';
 import { AddCountryService } from './add-country.service';
 import { Country } from '@/modules/countries/models/country.model';
+import { ConflictException } from '@nestjs/common';
 
 describe('AddCountryService', () => {
   let repository: CountriesRepository;
@@ -49,6 +50,13 @@ describe('AddCountryService', () => {
     it('should be called repository with correct params', async () => {
       await service.addCountry(mockAddCountry);
       expect(repository.addCountry).toBeCalledWith(mockAddCountry);
+    });
+
+    it('should be throw if already a country with that name', async () => {
+      repository.findByName = jest.fn().mockReturnValue('any_name');
+      await expect(service.addCountry(mockAddCountry)).rejects.toThrow(
+        new ConflictException('there is already a country with that name.'),
+      );
     });
   });
 });
