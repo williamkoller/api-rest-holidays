@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { AddCountryDto } from '@/modules/countries/dtos/add-country/add-country.dto';
 import { CountriesRepository } from '@/modules/countries/repositories/countries.repository';
-import { Country } from '../../entities/country.entity';
+import { Country } from '@/modules/countries/entities/country.entity';
 
 @Injectable()
 export class AddCountryService {
