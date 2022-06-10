@@ -16,8 +16,8 @@ export class CountriesController {
     return await this.addCountryService.addCountry(addCountryDto);
   }
 
-  @Get()
-  async find(): Promise<Country[]> {
-    return await this.findAllCountriesService.findAll();
-  }
+  // @Get()
+  // async find(): Promise<Country[]> {
+  //   return await this.findAllCountriesService.findAll();
+  // }
 }
