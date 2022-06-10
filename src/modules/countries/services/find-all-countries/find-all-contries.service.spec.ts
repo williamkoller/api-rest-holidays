@@ -7,7 +7,7 @@ describe('FindAllCountriesService', () => {
   let mongoRepo: CountriesRepository;
   beforeEach(async () => {
     const countriesRepositoryMock = {
-      findAll: jest.fn(),
+      findAllCountry: jest.fn(),
     };
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -33,6 +33,11 @@ describe('FindAllCountriesService', () => {
   describe('findAll()', () => {
     it('should be no throw if repository returns', async () => {
       await expect(service.findAll()).resolves.not.toThrow();
+    });
+
+    it('should be called repository with correct params', async () => {
+      await service.findAll();
+      expect(mongoRepo.findAllCountry).toBeCalledTimes(1);
     });
   });
 });
