@@ -10,7 +10,7 @@ export const envs = (): EnvironmentType => {
     nodeEnv: process.env.NODE_ENV,
     appUrl: process.env.APP_URL,
     port: Number(process.env.PORT),
-    mongoUri: process.env.MONGODB_URI
+    mongoUri: process.env.MONGODB_URI,
   };
 };
 
