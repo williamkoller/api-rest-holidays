@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesRepository } from '@/modules/countries/repositories/countries.repository';
 import { AddCountryService } from './add-country.service';
-import { Country } from '../../models/country.model';
-import { InternalServerErrorException } from '@nestjs/common';
+import { Country } from '@/modules/countries/models/country.model';
 
 describe('AddCountryService', () => {
   let repository: CountriesRepository;
@@ -12,6 +11,7 @@ describe('AddCountryService', () => {
   beforeEach(async () => {
     const countriesRepositoryMock = {
       addCountry: jest.fn(),
+      findByName: jest.fn(),
     };
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -42,10 +42,8 @@ describe('AddCountryService', () => {
   });
 
   describe('addCountry()', () => {
-    it('should be throw if repository throw', async () => {
-      await expect(service.addCountry()).rejects.toThrow(
-        new InternalServerErrorException(),
-      );
+    it('should be no throw if repository returns', async () => {
+      await expect(service.addCountry(mockAddCountry)).resolves.not.toThrow();
     });
   });
 });
