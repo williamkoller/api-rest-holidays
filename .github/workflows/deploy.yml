@@ -48,8 +48,8 @@ jobs:
     needs: [continuous-integration]
 
     steps:
+      - uses: actions/checkout@v2
       - name: Deploy to heroku
-        uses: actions/checkout@v2
         if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
