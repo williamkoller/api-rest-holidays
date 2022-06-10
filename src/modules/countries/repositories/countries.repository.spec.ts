@@ -56,19 +56,19 @@ describe('CountriesRepository', () => {
       mongoRepo.save = jest.fn().mockReturnValue(mockAddCountry);
       expect(await mongoRepo.save(mockAddCountry)).toEqual(mockAddCountry);
     });
+  });
 
-    describe('findAllCountry()', () => {
-      it('should be findAll with correct params', async () => {
-        await countriesRepo.findAllCountry();
-        expect(mongoRepo.find).toBeCalledWith();
-      });
+  describe('findAllCountry()', () => {
+    it('should be findAll with correct params', async () => {
+      await countriesRepo.findAllCountry();
+      expect(mongoRepo.find).toBeCalledWith();
     });
+  });
 
-    describe('findByName()', () => {
-      it('should be called findOne with correct params', async () => {
-        await countriesRepo.findByName(mockAddCountry.name);
-        expect(mongoRepo.findOne).toBeCalledTimes(0);
-      });
+  describe('findByName()', () => {
+    it('should be called findOne with correct params', async () => {
+      await countriesRepo.findByName(mockAddCountry.name);
+      expect(mongoRepo.findOne).toBeCalledTimes(0);
     });
   });
 });
