@@ -29,4 +29,10 @@ describe('FindAllCountriesService', () => {
   it('should be repository defined', () => {
     expect(mongoRepo).toBeDefined();
   });
+
+  describe('findAll()', () => {
+    it('should be no throw if repository returns', async () => {
+      await expect(service.findAll()).resolves.not.toThrow();
+    });
+  });
 });
