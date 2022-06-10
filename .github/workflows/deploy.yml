@@ -27,7 +27,7 @@ jobs:
 
       - name: Running test
         run: yarn test
-      
+
       - name: Running coverage
         run: yarn test:cov
 
@@ -51,3 +51,4 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          justlogin: true
