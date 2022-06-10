@@ -65,10 +65,10 @@ describe('CountriesController', () => {
     });
   });
 
-  // describe('findAll()', () => {
-  //   it('should be returns when service returns', async () => {
-  //     (findAllService.findAll as jest.Mock).mockReturnValue(mockAddCountry);
-  //     expect(await controller.find()).toEqual(mockAddCountry);
-  //   });
-  // });
+  describe('findAll()', () => {
+    it('should be returns when service returns', async () => {
+      (findAllService.findAll as jest.Mock).mockReturnValue(mockAddCountry);
+      expect(await controller.find()).toEqual(mockAddCountry);
+    });
+  });
 });
