@@ -45,5 +45,10 @@ describe('AddCountryService', () => {
     it('should be no throw if repository returns', async () => {
       await expect(service.addCountry(mockAddCountry)).resolves.not.toThrow();
     });
+
+    it('should be called repository with correct params', async () => {
+      await service.addCountry(mockAddCountry);
+      expect(repository.addCountry).toBeCalledWith(mockAddCountry);
+    });
   });
 });
