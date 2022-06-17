@@ -3,5 +3,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/williamkoller/api-rest-holidays/badge.svg?branch=main)](https://coveralls.io/github/williamkoller/api-rest-holidays?branch=main)
 [![CI/CD](https://github.com/williamkoller/api-rest-holidays/actions/workflows/deploy.yml/badge.svg)](https://github.com/williamkoller/api-rest-holidays/actions/workflows/deploy.yml)
 [![CodeQL](https://github.com/williamkoller/api-rest-holidays/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/williamkoller/api-rest-holidays/actions/workflows/codeql-analysis.yml)
+[![GitGuardian scan](https://github.com/williamkoller/api-rest-holidays/actions/workflows/gitguardian.yml/badge.svg)](https://github.com/williamkoller/api-rest-holidays/actions/workflows/gitguardian.yml)
 
 # API Rest Holidays
