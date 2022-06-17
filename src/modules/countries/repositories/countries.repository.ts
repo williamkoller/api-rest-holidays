@@ -3,9 +3,21 @@ import { Country } from '@/modules/countries/entities/country.entity';
 import { AddCountryDto } from '@/modules/countries/dtos/add-country/add-country.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  AddCountryRepository,
+  FindAllCountriesRepository,
+  FindCountryByNameRepository,
+  FindCountriesAndCountRepository,
+} from '@/data/protocols/db/countries';
 
 @Injectable()
-export class CountriesRepository {
+export class CountriesRepository
+  implements
+    AddCountryRepository,
+    FindAllCountriesRepository,
+    FindCountryByNameRepository,
+    FindCountriesAndCountRepository
+{
   constructor(
     @InjectRepository(Country)
     private readonly mongoRepo: MongoRepository<Country>,
@@ -21,5 +33,9 @@ export class CountriesRepository {
 
   async findByName(name: string): Promise<Country> {
     return await this.mongoRepo.findOneBy({ name });
+  }
+
+  async findCountriesAndCount(): Promise<number> {
+    return await this.mongoRepo.count();
   }
 }
