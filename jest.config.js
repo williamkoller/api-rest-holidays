@@ -9,6 +9,7 @@ module.exports = {
     '!<rootDir>/src/modules/**/**.module.ts',
     '!<rootDir>/src/modules/**/**.settings.ts',
     '!<rootDir>/src/modules/**/dtos/**/**.dto.ts',
+    '!<rootDir>/src/data/protocols/db/**/index.ts',
   ],
   coverageDirectory: 'coverage',
   testEnvironment: 'node',
