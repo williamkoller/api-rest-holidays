@@ -27,10 +27,12 @@ describe('CountriesRepository', () => {
             find: jest.fn(),
             findOne: jest.fn().mockReturnValue(mockAddCountry.name),
             save: jest.fn(),
+            count: jest.fn(),
             addCountry: jest.fn().mockResolvedValue(mockAddCountry),
             findAllCountry: jest.fn().mockResolvedValue([mockAddCountry]),
             findOneBy: jest.fn().mockResolvedValue(mockAddCountry.name),
             findByName: jest.fn(),
+            findCountriesAndCount: jest.fn(),
           },
         },
       ],
@@ -69,6 +71,13 @@ describe('CountriesRepository', () => {
     it('should be called findOne with correct params', async () => {
       await countriesRepo.findByName(mockAddCountry.name);
       expect(mongoRepo.findOne).toBeCalledTimes(0);
+    });
+  });
+
+  describe('findCountriesAndCount()', () => {
+    it('should be called count and return correct params', async () => {
+      await countriesRepo.findCountriesAndCount();
+      expect(mongoRepo.count).toHaveLength(0);
     });
   });
 });
