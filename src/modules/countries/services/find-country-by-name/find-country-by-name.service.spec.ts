@@ -44,11 +44,15 @@ describe('FindCountryByNameService Test', () => {
     it('should be no throw if repository returns', async () => {
       await expect(service.findByName('any_name')).rejects.toThrow();
     });
-    it('should be throw findAllCountries throw', async () => {
+    it('should be throw findByName throw', async () => {
       (repository.findByName as jest.Mock).mockRejectedValue(
-        new NotFoundException('No record found.'),
+        new NotFoundException('country not found.'),
       );
       await expect(service.findByName).rejects.toThrow();
+    });
+    it('should be no throw if repository returns', async () => {
+      repository.findByName = jest.fn().mockReturnValue([]);
+      await expect(service.findByName('any_name')).resolves.not.toThrow();
     });
   });
 });
