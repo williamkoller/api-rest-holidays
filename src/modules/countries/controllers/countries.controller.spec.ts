@@ -4,11 +4,13 @@ import { Country } from '@/modules/countries/entities/country.entity';
 import { AddCountryService } from '../services/add-country/add-country.service';
 import { CountriesController } from './countries.controller';
 import { FindAllCountriesService } from '../services/find-all-countries/find-all-contries.service';
+import { FindCountryByNameService } from '../services/find-country-by-name/find-country-by-name.service';
 
 describe('CountriesController', () => {
   let controller: CountriesController;
   let service: AddCountryService;
   let findAllService: FindAllCountriesService;
+  let findCountryByNameService: FindCountryByNameService;
   let mockAddCountry: Country;
 
   beforeEach(async () => {
@@ -28,12 +30,21 @@ describe('CountriesController', () => {
             findAll: jest.fn(),
           },
         },
+        {
+          provide: FindCountryByNameService,
+          useValue: {
+            findByName: jest.fn(),
+          },
+        },
       ],
     }).compile();
     controller = module.get<CountriesController>(CountriesController);
     service = module.get<AddCountryService>(AddCountryService);
     findAllService = module.get<FindAllCountriesService>(
       FindAllCountriesService,
+    );
+    findCountryByNameService = module.get<FindCountryByNameService>(
+      FindCountryByNameService,
     );
 
     mockAddCountry = {
@@ -69,6 +80,17 @@ describe('CountriesController', () => {
     it('should be returns when service returns', async () => {
       (findAllService.findAll as jest.Mock).mockReturnValue(mockAddCountry);
       expect(await controller.find()).toEqual(mockAddCountry);
+    });
+  });
+
+  describe('findByName()', () => {
+    it('should be returns when service returns', async () => {
+      (findCountryByNameService.findByName as jest.Mock).mockReturnValue(
+        mockAddCountry,
+      );
+      expect(await controller.findCountryByName('any_name')).toEqual(
+        mockAddCountry,
+      );
     });
   });
 });
