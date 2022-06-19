@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Country } from '../../entities/country.entity';
 import { CountriesRepository } from '../../repositories/countries.repository';
 
@@ -6,7 +6,13 @@ import { CountriesRepository } from '../../repositories/countries.repository';
 export class FindCountryByNameService {
   constructor(private readonly countriesRepo: CountriesRepository) {}
 
-  async findByName(name: string): Promise<unknown> {
-    return name;
+  async findByName(name: string): Promise<Country> {
+    const country = await this.countriesRepo.findByName(name);
+
+    if (!country) {
+      throw new NotFoundException('country not found.');
+    }
+
+    return country;
   }
 }
