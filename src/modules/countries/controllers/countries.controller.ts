@@ -48,6 +48,15 @@ export class CountriesController {
   }
 
   @Get(':name')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'find country by name.',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'country not found.',
+  })
   async findCountryByName(@Param('name') name: string): Promise<Country> {
     return await this.findCountryByNameService.findByName(name);
   }
