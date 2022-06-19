@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Country } from '../../entities/country.entity';
 import { CountriesRepository } from '../../repositories/countries.repository';
@@ -41,7 +42,13 @@ describe('FindCountryByNameService Test', () => {
 
   describe('findByName()', () => {
     it('should be no throw if repository returns', async () => {
-      await expect(service.findByName('any_name')).resolves.not.toThrow();
+      await expect(service.findByName('any_name')).rejects.toThrow();
+    });
+    it('should be throw findAllCountries throw', async () => {
+      (repository.findByName as jest.Mock).mockRejectedValue(
+        new NotFoundException('No record found.'),
+      );
+      await expect(service.findByName).rejects.toThrow();
     });
   });
 });
