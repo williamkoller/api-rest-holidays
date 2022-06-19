@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
 } from '@nestjs/common';
 import { AddCountryDto } from '@/modules/countries/dtos/add-country/add-country.dto';
@@ -11,6 +12,7 @@ import { Country } from '@/modules/countries/entities/country.entity';
 import { AddCountryService } from '@/modules/countries/services/add-country/add-country.service';
 import { FindAllCountriesService } from '../services/find-all-countries/find-all-contries.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FindCountryByNameService } from '../services/find-country-by-name/find-country-by-name.service';
 
 @ApiTags('countries')
 @Controller('countries')
@@ -18,6 +20,7 @@ export class CountriesController {
   constructor(
     private readonly addCountryService: AddCountryService,
     private readonly findAllCountriesService: FindAllCountriesService,
+    private readonly findCountryByNameService: FindCountryByNameService,
   ) {}
 
   @Post()
@@ -42,5 +45,10 @@ export class CountriesController {
   })
   async find(): Promise<Country[]> {
     return await this.findAllCountriesService.findAll();
+  }
+
+  @Get(':name')
+  async findCountryByName(@Param('name') name: string): Promise<Country> {
+    return await this.findCountryByNameService.findByName(name);
   }
 }
