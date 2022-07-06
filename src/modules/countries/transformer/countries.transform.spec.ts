@@ -1,5 +1,5 @@
 import { Country } from '../entities/country.entity';
-import { countryTransform } from './countries.transform';
+import { countriesTransform, countryTransform } from './countries.transform';
 
 const makeCountry = (): Country => ({
   _id: 'any_id',
@@ -19,5 +19,18 @@ describe('Countries', () => {
     expect(actualCountry.slug).toBe(country.slug);
     expect(actualCountry.createdAt).toStrictEqual(country.createdAt);
     expect(actualCountry.updatedAt).toStrictEqual(country.updatedAt);
+  });
+
+  it('should transform countries to output', () => {
+    const countries: Country[] = [makeCountry()];
+
+    const actualCountry = countriesTransform(countries);
+
+    expect(actualCountry.length).toBe(1);
+    expect(actualCountry[0]._id).toBe(countries[0]._id);
+    expect(actualCountry[0].name).toBe(countries[0].name);
+    expect(actualCountry[0].slug).toBe(countries[0].slug);
+    expect(actualCountry[0].createdAt).toStrictEqual(countries[0].createdAt);
+    expect(actualCountry[0].updatedAt).toStrictEqual(countries[0].updatedAt);
   });
 });
