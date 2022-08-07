@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/modules/app/app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { swagger } from './docs/swagger';
 
@@ -10,6 +10,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   swagger(app);
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const config = app.get<ConfigService>(ConfigService);
   const port = config.get<string>('port');
