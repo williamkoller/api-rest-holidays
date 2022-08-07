@@ -28,7 +28,7 @@ export class StatesRepository
 
   public async findByName(name: string): Promise<State[]> {
     return await this.mongoRepo.findBy({
-      name: new RegExp(name, 'i'),
+      name: { $regex: name, $options: 'i' },
     });
   }
 
