@@ -32,7 +32,7 @@ export class CountriesRepository
   }
 
   async findByName(name: string): Promise<Country> {
-    return await this.mongoRepo.findOneBy({ name });
+    return await this.mongoRepo.findOneBy({ name: { $eq: name } });
   }
 
   async findCountriesAndCount(): Promise<number> {

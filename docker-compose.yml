@@ -45,7 +45,7 @@ services:
     expose:
       - ${NGINX_PORT}
     networks:
-     - api-rest-holidays_network
+      - api-rest-holidays_network
     links:
       - api-rest-holidays
 
@@ -54,3 +54,6 @@ volumes:
 
 networks:
   api-rest-holidays_network:
+    ipam:
+      config:
+        - subnet: 10.120.178.84/24
